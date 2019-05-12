@@ -1,5 +1,4 @@
-from sources import kuaidaili
-from sources import xiladaili
+from sources import kuaidaili,xiladaili,xicidaili
 import save_to_redis,test_usability
 import sys,json,shortuuid
 
@@ -10,7 +9,8 @@ if __name__=='__main__':
         print('请输入参数')
     elif(args[1]=='get'):
         # spider=kuaidaili.KuaiDaiLi()
-        spider=xiladaili.XiLaDaiLi()
+        # spider=xiladaili.XiLaDaiLi()
+        spider=xicidaili.XiCiDaiLi()
         proxys=spider.run()
         for proxy in proxys:
             save_to_redis.save_proxy('proxys',shortuuid.uuid(),json.dumps(proxy))

@@ -13,7 +13,7 @@ class XiLaDaiLi(object):
         for url in tem_url:
             for i in range(1,10):
                 with Browser('chrome') as browser:
-                    url=tem_url.format(i)
+                    url=url.format(i)
                     browser.visit(url)
 
                     tr_list=browser.find_by_tag('tbody').first.find_by_tag('tr')
@@ -34,4 +34,4 @@ class XiLaDaiLi(object):
                         proxy_list.append(result)
                         print('get new proxy : '+json.dumps(result))
                 print('page {0} process down!'.format(i))
-    return proxy_list
+        return proxy_list
