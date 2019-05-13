@@ -1,18 +1,20 @@
 from splinter import Browser
 import json,pdb
+import sys
+sys.path.append('..')
+import setting
 
-headers={
-    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
-    "Referer":"http://www.xiladaili.com"
-    }
 tem_url=["http://www.xiladaili.com/gaoni/{0}/","http://www.xiladaili.com/putong/{0}/"]
 proxy_list=[]
 
 class XiLaDaiLi(object):
+    def __init__(self):
+        Name='kuaidaili'
+
     def run(self):
         for url in tem_url:
-            for i in range(1,10):
-                with Browser('chrome') as browser:
+            with Browser('chrome') as browser:
+                for i in range(1,setting.PAGE_SIZE):
                     url=url.format(i)
                     browser.visit(url)
 

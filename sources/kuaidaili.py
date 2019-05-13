@@ -1,21 +1,22 @@
 from splinter import Browser
 import json,pdb
+import sys
+sys.path.append('..')
+import setting
 
-headers={
-    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
-    "Referer":"https://www.kuaidaili.com"
-    }
 tem_url="https://www.kuaidaili.com/free/inha/{0}/"
 proxy_list=[]
 
 class KuaiDaiLi(object):
+    def __init__(self):
+        Name='kuaidaili'
+
     def run(self):
-        for i in range(1,10):
-            with Browser('chrome') as browser:
+        with Browser('chrome') as browser:
+            for i in range(1,setting.PAGE_SIZE):
                 url=tem_url.format(i)
                 browser.visit(url)
                 invalid=browser.find_by_text('Invalid Page')
-                # pdb.set_trace()
                 if(len(browser.title)<=0):
                     print('Invalid Page,return')
                     return
@@ -30,6 +31,6 @@ class KuaiDaiLi(object):
                     protocal=tr.find_by_tag('td')[3]
                     result={'ip':ip.value,'port':port.value,'protocal':protocal.value}
                     proxy_list.append(result)
-                    # print('get new proxy : '+json.dumps(result))
+                    print('get new proxy : '+json.dumps(result))
             print('page {0} process down!'.format(i))
         return proxy_list

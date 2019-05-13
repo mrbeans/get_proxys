@@ -1,19 +1,21 @@
 #https://www.xicidaili.com/nn/
 from splinter import Browser
 import json,pdb
+import sys
+sys.path.append('..')
+import setting
 
-headers={
-    "User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36",
-    "Referer":"http://www.xicidaili.com"
-    }
 tem_url=["http://www.xicidaili.com/nn/{0}/","http://www.xicidaili.com/nt/{0}/"]
 proxy_list=[]
 
 class XiCiDaiLi(object):
+    def __init__(self):
+        Name='kuaidaili'
+
     def run(self):
         for url in tem_url:
-            for i in range(1,2):
-                with Browser('chrome') as browser:
+            with Browser('chrome') as browser:
+                for i in range(1,setting.PAGE_SIZE):
                     url=url.format(i)
                     browser.visit(url)
 
@@ -23,7 +25,6 @@ class XiCiDaiLi(object):
                         return
                     print('page {0} get {1} proxys'.format(i,len(tr_list)-1))#因为第一行永远是标题th
                     for tr in tr_list:
-                        # pdb.set_trace()
                         if(len(tr.find_by_tag('th'))>0):
                             continue
                         ip=tr.find_by_tag('td')[1].value
