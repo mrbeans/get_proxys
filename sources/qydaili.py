@@ -1,7 +1,7 @@
 #http://www.qydaili.com/free/?action=china&page=3
 from splinter import Browser
 import json,pdb
-import sys
+import sys,time,random
 sys.path.append('..')
 import setting
 
@@ -15,6 +15,11 @@ class QYDaiLi(object):
     def run(self):
         with Browser('chrome') as browser:
             for i in range(1,setting.PAGE_SIZE):
+                if(i%setting.SLEEP_AFTER_PAGE==0):
+                        sleep_sec=random.randint(3,8)
+                        print('now sleep {sec} seconds'.format(sleep_sec))
+                        time.sleep(sleep_sec)
+
                 browser.visit(tem_url.format(i))
 
                 tr_list=browser.find_by_tag('tbody').first.find_by_tag('tr')
