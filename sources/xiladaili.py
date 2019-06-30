@@ -13,7 +13,7 @@ class XiLaDaiLi(object):
 
     def run(self):
         for url in tem_url:
-            with Browser('chrome') as browser:
+            with Browser('chrome', headless=True) as browser:
                 for i in range(1,setting.PAGE_SIZE):
                     if(i%setting.SLEEP_AFTER_PAGE==0):
                         sleep_sec=random.randint(3,8)

@@ -18,7 +18,6 @@ def check():
     for vproxy in valid_proxys:
         save_to_redis.save_proxy('valid_proxy',shortuuid.uuid(),json.dumps(vproxy))
 
-#chromedriver各版本下载地址 http://chromedriver.storage.googleapis.com/index.html
 if __name__=='__main__':
     args=sys.argv
     if(len(args)<2 or args[1]=='get'):
@@ -31,4 +30,4 @@ if __name__=='__main__':
         check()
         print('check all proxy done')
     else:
-        print('what the f**k')
+        print('invalid command')
