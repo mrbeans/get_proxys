@@ -3,8 +3,7 @@ import save_to_redis,test_usability
 import sys,json,shortuuid
 
 def get():
-    # spiders=[kuaidaili.KuaiDaiLi(),xiladaili.XiLaDaiLi(),xicidaili.XiCiDaiLi(),qydaili.QYDaiLi(),ip89.IP89()]
-    spiders=[ip89.IP89()]
+    spiders=[kuaidaili.KuaiDaiLi(),xiladaili.XiLaDaiLi(),xicidaili.XiCiDaiLi(),qydaili.QYDaiLi(),ip89.IP89()]
     for spider in spiders:
         try:
             proxys=spider.run()

@@ -10,7 +10,7 @@ proxy_list=[]
 
 class QYDaiLi(object):
     def __init__(self):
-        Name='kuaidaili'
+        self.Name='kuaidaili'
 
     def run(self):
         with Browser('chrome', headless=True) as browser:

@@ -6,7 +6,7 @@ ip_url='http://www.89ip.cn/tqdl.html?num=3000&address=&kill_address=&port=&kill_
 class IP89(object):
 
     def __init__(self):
-        Name='89ip'
+        self.Name='89ip'
 
     def run(self):
         response=requests.get(ip_url)
