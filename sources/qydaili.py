@@ -13,7 +13,7 @@ class QYDaiLi(object):
         self.Name='kuaidaili'
 
     def run(self):
-        with Browser('chrome', headless=True) as browser:
+        with Browser('chrome', headless=setting.USE_HEADLESS) as browser:
             for i in range(1,setting.PAGE_SIZE):
                 if(i%setting.SLEEP_AFTER_PAGE==0):
                         sleep_sec=random.randint(3,8)
@@ -24,9 +24,9 @@ class QYDaiLi(object):
 
                 tr_list=browser.find_by_tag('tbody').first.find_by_tag('tr')
                 if(tr_list==None or len(tr_list)<=0):
-                    print('page {0} get 0 proxy,return'.format(i))
+                    # print('page {0} get 0 proxy,return'.format(i))
                     return
-                print('page {0} get {1} proxys'.format(i,len(tr_list)))
+                # print('page {0} get {1} proxys'.format(i,len(tr_list)))
                 for tr in tr_list:
                     value_list=tr.value.split('\n')
                     ip=value_list[1]
@@ -34,6 +34,6 @@ class QYDaiLi(object):
                     protocal=value_list[7]
                     result={'ip':ip,'port':port,'protocal':protocal}
                     proxy_list.append(result)
-                    print('get new proxy : '+json.dumps(result))
-            print('page {0} process down!'.format(i))
+                    # print('get new proxy : '+json.dumps(result))
+            # print('page {0} process done!'.format(i))
         return proxy_list

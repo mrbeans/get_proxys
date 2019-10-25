@@ -10,11 +10,11 @@ proxy_list=[]
 
 class XiCiDaiLi(object):
     def __init__(self):
-        Name='kuaidaili'
+        self.Name='kuaidaili'
 
     def run(self):
         for url in tem_url:
-            with Browser('chrome', headless=True) as browser:
+            with Browser('chrome', headless=setting.USE_HEADLESS) as browser:
                 for i in range(1,setting.PAGE_SIZE):
                     if(i%setting.SLEEP_AFTER_PAGE==0):
                         sleep_sec=random.randint(3,8)
@@ -26,9 +26,9 @@ class XiCiDaiLi(object):
 
                     tr_list=browser.find_by_id('ip_list').first.find_by_tag('tr')
                     if(tr_list==None or len(tr_list)<=0):
-                        print('page {0} get 0 proxy,return'.format(i))
-                        return
-                    print('page {0} get {1} proxys'.format(i,len(tr_list)-1))#因为第一行永远是标题th
+                        # print('page {0} get 0 proxy,return'.format(i))
+                        return proxy_list
+                    # print('page {0} get {1} proxys'.format(i,len(tr_list)-1))#因为第一行永远是标题th
                     for tr in tr_list:
                         if(len(tr.find_by_tag('th'))>0):
                             continue
@@ -37,6 +37,6 @@ class XiCiDaiLi(object):
                         protocal=tr.find_by_tag('td')[5].value
                         result={'ip':ip,'port':port,'protocal':protocal}
                         proxy_list.append(result)
-                        print('get new proxy : '+json.dumps(result))
-                print('page {0} process down!'.format(i))
+                        # print('get new proxy : '+json.dumps(result))
+                # print('page {0} process down!'.format(i))
         return proxy_list

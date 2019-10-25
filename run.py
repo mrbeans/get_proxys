@@ -1,15 +1,17 @@
 from sources import kuaidaili,xiladaili,xicidaili,qydaili,ip89
 import save_to_redis,test_usability
-import sys,json,shortuuid
+import sys,json,shortuuid,pdb
 
 def get():
-    spiders=[kuaidaili.KuaiDaiLi(),xiladaili.XiLaDaiLi(),xicidaili.XiCiDaiLi(),qydaili.QYDaiLi(),ip89.IP89()]
+    # spiders=[kuaidaili.KuaiDaiLi(),xiladaili.XiLaDaiLi(),xicidaili.XiCiDaiLi(),qydaili.QYDaiLi(),ip89.IP89()]
+    spiders=[kuaidaili.KuaiDaiLi()]
     for spider in spiders:
         try:
             proxys=spider.run()
+            pdb.set_trace()
+            print('get {0} proxys from {1} done'.format(len(proxys),spider.Name))
             for proxy in proxys:
                 save_to_redis.save_proxy('proxys',shortuuid.uuid(),json.dumps(proxy))
-            print('get proxys from {0} done'.format(spider.Name))
         except Exception as ex:
             print(ex)
 

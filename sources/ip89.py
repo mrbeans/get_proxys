@@ -24,7 +24,7 @@ class IP89(object):
             port=one.split(':')[1]
             protocal='http'
             result={'ip':ip,'port':port,'protocal':protocal}
-            print(result)
+            # print(result)
             proxy_list.append(result)
-        print(len(proxy_list))
+        # print(len(proxy_list))
         return proxy_list

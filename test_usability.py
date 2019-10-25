@@ -1,4 +1,4 @@
-import requests,pdb
+import requests,pdb,sys
 import save_to_redis
 import threading
 from concurrent.futures import ProcessPoolExecutor,as_completed
@@ -14,16 +14,19 @@ def exec_test(p,url):
         }
     try:
         requests.get(url,proxies=proxies,timeout=5)
-        print('--------------------------------success--------------------------------')
+        # print('--------------------------------success--------------------------------')
         return (True,proxy)
     except requests.exceptions.RequestException as ex:
-        print('********************************field********************************')
+        # print('********************************field********************************')
         return(False,'')
 
 def run_test(url='http://www.baidu.com'):
     valid_proxys=[]
     proxys=save_to_redis.get_proxy()
-    with ProcessPoolExecutor(500) as pool:
+    worker_count= 500
+    if(sys.platform=='win32'):
+        worker_count=60
+    with ProcessPoolExecutor(worker_count) as pool:
         results={pool.submit(exec_test,p,url):p for p in proxys.items()}
         for r in as_completed(results):
             if(r.result()[0]==True):
