@@ -8,7 +8,7 @@ chardet==3.0.4
 Click==7.0
 conda==4.5.4
 constantly==15.1.0
-cryptography==2.2.2
+cryptography==2.3
 cssselect==1.0.3
 dlib==19.8.1
 face-recognition==1.2.3
