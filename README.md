@@ -47,4 +47,5 @@
 * 程序运行必须的插件chromedriver各版本下载地址 http://chromedriver.storage.googleapis.com/index.html
 
 #### TODO:
+* 将程序改成服务，支持7*24h运行，每隔一定的时间间隔自动检测可用的IP，如果可用IP下降到片一定的阈值内，则自动获取新的ip代理列表
 * 添加更多来源
