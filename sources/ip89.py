@@ -1,5 +1,8 @@
 import requests,re,pdb
 from bs4 import BeautifulSoup
+import sys
+sys.path.append('..')
+from utils.BaseModel import BaseModel
 
 ip_url='http://www.89ip.cn/tqdl.html?num=3000&address=&kill_address=&port=&kill_port=&isp='
 
@@ -23,8 +26,6 @@ class IP89(object):
             ip=one.split(':')[0]
             port=one.split(':')[1]
             protocal='http'
-            result={'ip':ip,'port':port,'protocal':protocal}
-            # print(result)
-            proxy_list.append(result)
-        # print(len(proxy_list))
+            region='中国'
+            proxy_list.append(BaseModel(ip,port,protocal,region).to_dict())
         return proxy_list

@@ -3,31 +3,25 @@ import json,pdb,random,time
 import sys
 sys.path.append('..')
 import setting
+from utils.BaseModel import BaseModel
 
 tem_url=["http://www.xiladaili.com/gaoni/{0}/","http://www.xiladaili.com/putong/{0}/"]
 proxy_list=[]
 
 class XiLaDaiLi(object):
     def __init__(self):
-        self.Name='kuaidaili'
+        self.Name='xiladaili'
 
     def run(self):
         for url in tem_url:
             with Browser('chrome', headless=setting.USE_HEADLESS) as browser:
                 for i in range(1,setting.PAGE_SIZE):
-                    if(i%setting.SLEEP_AFTER_PAGE==0):
-                        sleep_sec=random.randint(3,8)
-                        print('now sleep {sec} seconds'.format(sleep_sec))
-                        time.sleep(sleep_sec)
-
                     url=url.format(i)
                     browser.visit(url)
 
                     tr_list=browser.find_by_tag('tbody').first.find_by_tag('tr')
                     if(tr_list==None or len(tr_list)<=0):
-                        # print('page {0} get 0 proxy,return'.format(i))
                         return proxy_list
-                    # print('page {0} get {1} proxys'.format(i,len(tr_list)))
                     for tr in tr_list:
                         ip_port=tr.find_by_tag('td')[0].value
                         ip=ip_port.split(':')[0]
@@ -37,8 +31,6 @@ class XiLaDaiLi(object):
                             protocal='HTTP'
                         if('HTTPS' in protocal_value):
                             protocal='HTTPS'
-                        result={'ip':ip,'port':port,'protocal':protocal}
-                        proxy_list.append(result)
-                        # print('get new proxy : '+json.dumps(result))
-                # print('page {0} process down!'.format(i))
+                        region=tr.find_by_tag('td')[3].value
+                        proxy_list.append(BaseModel(ip,port,protocal,region).to_dict())
         return proxy_list

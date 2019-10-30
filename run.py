@@ -1,17 +1,18 @@
-from sources import kuaidaili,xiladaili,xicidaili,qydaili,ip89
+from sources import kuaidaili,xiladaili,xicidaili,qydaili,ip89,ip66
 import save_to_redis,test_usability
 import sys,json,shortuuid,pdb
 
 def get():
-    spiders=[kuaidaili.KuaiDaiLi(),xiladaili.XiLaDaiLi(),xicidaili.XiCiDaiLi(),qydaili.QYDaiLi(),ip89.IP89()]
+    spiders=[kuaidaili.KuaiDaiLi(),xiladaili.XiLaDaiLi(),xicidaili.XiCiDaiLi(),qydaili.QYDaiLi(),ip89.IP89(),ip66.IP66()]
     for spider in spiders:
         try:
             proxys=spider.run()
             print('get {0} proxys from {1} done'.format(len(proxys),spider.Name))
-            for proxy in proxys:
-                save_to_redis.save_proxy('proxys',shortuuid.uuid(),json.dumps(proxy))
+            save_to_redis.save_proxy('proxys',spider.Name,json.dumps(proxys))
+        except KeyError as kex:
+            print('KeyError------'+str(kex))
         except Exception as ex:
-            print(ex)
+            print('error------'+str(ex))
 
 #todo 有时候由于网络或者其他原因，一次性检查的数据量多，太耗时，建议检查一个，存进去一个。这样可以边检查边使用
 def check():

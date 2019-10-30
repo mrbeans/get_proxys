@@ -41,7 +41,6 @@
 ![redis存储结构](https://project-imgs.oss-cn-shanghai.aliyuncs.com/proxys.png)
 
 #### 其他说明：
-* 每个网站的免费代理，每获取10页数据之后会随机休眠3-8s以降低对来源网站的压力
 * 数据存储在redis中的第6个[索引为5]数据库中，全量的ip key为“proxys”，筛选过后的ip key为“valid_proxy”
 * 如果redis需要验证，请在save_to_redis中的连接对象中配置password参数
 * 程序运行必须的插件chromedriver各版本下载地址 http://chromedriver.storage.googleapis.com/index.html
