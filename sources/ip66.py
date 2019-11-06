@@ -26,5 +26,5 @@ class IP66(object):
             for ip_port in all:
                 ip=ip_port.split(':')[0]
                 port=int(ip_port.split(':')[1])
-                proxy_list.extend(BaseModel(ip,port,'http','中国').to_dict())
+                proxy_list.append(BaseModel(ip,port,'http','中国').to_dict())
         return proxy_list
