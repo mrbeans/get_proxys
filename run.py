@@ -3,14 +3,12 @@ import save_to_redis,test_usability
 import sys,json,shortuuid,pdb
 
 def get():
-    spiders=[kuaidaili.KuaiDaiLi(),xiladaili.XiLaDaiLi(),xicidaili.XiCiDaiLi(),qydaili.QYDaiLi(),ip89.IP89(),ip66.IP66()]
+    spiders=[kuaidaili.KuaiDaiLi(),xiladaili.XiLaDaiLi(),xicidaili.XiCiDaiLi(),qydaili.QYDaiLi(),ip89.IP89()]
     for spider in spiders:
         try:
             proxys=spider.run()
             print('get {0} proxys from {1} done'.format(len(proxys),spider.Name))
             save_to_redis.save_proxy('proxys',spider.Name,json.dumps(proxys))
-        except KeyError as kex:
-            print('KeyError------'+str(kex))
         except Exception as ex:
             print('error------'+str(ex))
 
